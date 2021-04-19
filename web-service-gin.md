@@ -43,14 +43,14 @@ To begin, create a project for the code you'll write.
 
 1. Click the <walkthrough-editor-spotlight spotlightId="menu-file">File Menu</walkthrough-editor-spotlight>, then click **Open Workspace**.
 
-1. In the **Open Workspace** dialog, select the /web-service-gin folder you created, then click **Open**.
+1. In the **Open Workspace** dialog, select the cloudshell_open/web-service-gin folder you just created, then click **Open**.
 
-1. Click the <walkthrough-cloud-shell-icon></walkthrough-cloud-shell-icon> button to open Cloud Shell.
+1. If Cloud Shell isn't open, click the <walkthrough-cloud-shell-icon></walkthrough-cloud-shell-icon> button to open it.
 
 1. In Cloud Shell, change to the web-service-gin directory you created.
 
     ```bash
-    cd ~/web-service-gin
+    cd ~/cloudshell_open/web-service-gin
     ```
 
 1. Create a module in which you can manage dependencies.
@@ -90,10 +90,9 @@ To keep things simple for the tutorial, you'll store the data accessed by the AP
 
 Note that storing album data in memory means that every time you stop and start the server, the set of albums stored in memory will reset.
 
-<!-- 1. Using your text editor, create a file called main.go in the web-service directory. You'll write your Go code in this file. -->
 1. Click the <walkthrough-editor-spotlight spotlightId="menu-file">File Menu</walkthrough-editor-spotlight>, then click **New File**.
-1. In the **New File** dialog, name the file main.go, then click **OK**.
-1. Into main.go, at the top of the file, paste the package declaration below.
+1. In the **New File** dialog, name the file **web-service-gin.go**, then click **OK**.
+1. Into web-service-gin.go, at the top of the file, paste the package declaration below.
 
     ```golang
     package main
@@ -158,7 +157,7 @@ Note that this is the reverse of how they'll be executed at run time, but you're
 
     > Note that you can replace <code>Context.JSON</code> with a call to <code>[Context.IndentedJSON function](https://pkg.go.dev/github.com/gin-gonic/gin#Context.IndentedJSON)</code> to display JSON that's a bit easier to read while debugging.
 
-1. Near the top of the main.go file, just beneath the `albums` slice declaration, paste the code below to map the handler function to an endpoint path.
+1. Near the top of the web-service-gin.go file, just beneath the `albums` slice declaration, paste the code below to map the handler function to an endpoint path.
 
     This sets up an association in which requests to the `/albums` endpoint path are handled by the `getAllAlbums` function you wrote.
 
@@ -197,6 +196,8 @@ Note that this is the reverse of how they'll be executed at run time, but you're
     go mod tidy
     ```
 1. Open the <walkthrough-editor-spotlight spotlightId="debug-configuration">Debug view</walkthrough-editor-spotlight>, then click the **Start Debugging** button.
+
+    The first time you start debugging, you'll be prompted to configure launch setting. Just close the launch.json file and click **Start Debugging** again. 
 
     Once the code is running, you have a running HTTP server to which you can send requests.
 
@@ -273,7 +274,7 @@ To do this, you'll write the following:
     *   Append the <code>album</code> struct initialized from the JSON to the <code>albums</code> slice.
     *   Use the <code>[Context.JSON function](https://pkg.go.dev/github.com/gin-gonic/gin#Context.JSON)</code> to serialize the <code>albums</code> slice to JSON for a response.
 
-1. Add the following highlighted code to your <code>main</code> function.
+1. Replace your <code>main</code> function with the following code.
 
     ```
     func main() {
@@ -293,7 +294,7 @@ To do this, you'll write the following:
 
 1. If the server is still running from the last section, stop it.
 1. Open the <walkthrough-editor-spotlight spotlightId="debug-configuration">Debug view</walkthrough-editor-spotlight>, then click the **Start Debugging** button.
-1. From a different command line window, use `curl` to make a request to your running web service.
+1. In Cloud Shell, use the following command to test the web service endpoint.
 
     ```bash
     curl -H "Content-Type: application/json" -d '{"id": "48590","title": "The Modern Sound of Betty Carter","artist": "Betty Carter","price": 49.99}' http://localhost:8080/albums
@@ -369,7 +370,7 @@ To do this, you will:
     *   Loop through the `album` structs in the slice, looking for one whose `ID` field value matches the `id` parameter value. If it's found, you serialize that `album` struct to JSON and return it as a response with a `200 OK` HTTP code.
     *   Return an HTTP 404 error with [`http.StatusNotFound`](https://pkg.go.dev/net/http#StatusNotFound) if the album isn't found.
 
-1. Finally, add the following highlighted code to your <code>main</code> function.
+1. Finally, replace your <code>main</code> function with the following code.
 
     ```
     func main() {
@@ -390,7 +391,7 @@ To do this, you will:
 
 1. If the server is still running from the last section, stop it.
 1. Open the <walkthrough-editor-spotlight spotlightId="debug-configuration">Debug view</walkthrough-editor-spotlight>, then click the **Start Debugging** button.
-1. From a new command line window, use `curl` to make a request to your running web service.
+1. In Cloud Shell, use the following command to test the web service endpoint.
 
     ```bash
     curl localhost:8080/albums/48583
