@@ -27,18 +27,17 @@ In this tutorial, you will:
 
 ## Prerequisites
 
-*   **An installation of Go.** For installation instructions, see [Installing Go](https://golang.org/doc/install).
-*   **A tool to edit your code.** Any text editor you have will work fine.
-*   **A command terminal.** Go works well using any terminal on Linux and Mac, and on PowerShell or cmd in Windows.
-*   **The curl tool.** On Linux and Mac, this should already be installed. On Windows, it's included on Windows 10 Insider build 17063 and later. For earlier Windows versions, you might need to install it. For more, see [Tar and Curl Come to Windows](https://docs.microsoft.com/en-us/virtualization/community/team-blog/2017/20171219-tar-and-curl-come-to-windows).
+*   **A Google account.** You'll need an account with Google. A Gmail account will do, for example. You can [create a free account](https://accounts.google.com/signup/v2/webcreateaccount?flowName=GlifWebSignIn&flowEntry=SignUp).
+
+    This tutorial uses the Google Cloud Shell Editor, an IDE with all of the basic environment dependencies you'll need. 
 
 ## Create a project for your code
 
 To begin, create a project for the code you'll write.
 
-1. In the **Welcome to Cloud Shell** page, under **Start**, click **Open Home Workspace**.
+1. Ensure that the **cloudshell_open** folder is selected.
 
-1. When the home workspace is open, click the <walkthrough-editor-spotlight spotlightId="menu-file">File Menu</walkthrough-editor-spotlight>, then click **New Folder**.
+1. Click the <walkthrough-editor-spotlight spotlightId="menu-file">File Menu</walkthrough-editor-spotlight>, then click **New Folder**.
 
 1. In the **New Folder** dialog, enter `web-service-gin` for the folder name, then click **OK**.
 
