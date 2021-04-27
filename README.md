@@ -10,4 +10,4 @@ These tutorials use the [Google Cloud Shell Editor](https://cloud.google.com/she
 
 - [Develop a RESTful API with Go and Gin](web-service-gin.md)
 
-    [![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.png)](https://ide.cloud.google.com/?cloudshell_workspace=~&walkthrough_tutorial_url=https%3A%2F%2Fgithub.com%2Fstevetraut%2Fgo-tutorials%2Fweb-service-gin.md)
+    [![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.png)](https://ssh.cloud.google.com/cloudshell/open?cloudshell_git_repo=https://github.com/stevetraut/go-tutorials&cloudshell_tutorial=web-service-gin.md)
