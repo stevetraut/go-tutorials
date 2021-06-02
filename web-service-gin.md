@@ -45,9 +45,10 @@ To begin, create a project for the code you'll write.
 
 1. In the **Open Workspace** dialog, select the cloudshell_open/web-service-gin folder you just created, then click **Open**.
 
-1. If Cloud Shell isn't open, click the <walkthrough-cloud-shell-icon></walkthrough-cloud-shell-icon> button to open it.
+1. If you have a terminal open yet, click the <walkthrough-editor-spotlight spotlightId="menu-terminal">
+Terminal menu</walkthrough-editor-spotlight> menu, then click **New Terminal** to open one.
 
-1. In Cloud Shell, change to the web-service-gin directory you created.
+1. In the terminal window, change to the web-service-gin directory you created.
 
     ```bash
     cd ~/cloudshell_open/web-service-gin
@@ -195,13 +196,15 @@ Note that this is the reverse of how they'll be executed at run time, but you're
     ```bash
     go mod tidy
     ```
-1. Open the <walkthrough-editor-spotlight spotlightId="debug-configuration">Debug view</walkthrough-editor-spotlight>, then click the **Start Debugging** button.
 
-    The first time you start debugging, you'll be prompted to configure launch setting. Just close the launch.json file and click **Start Debugging** again. 
+1. To run the code, click the <walkthrough-editor-spotlight spotlightId="menu-run-start-without-debugging">Start without debugging</walkthrough-editor-spotlight> command.
 
     Once the code is running, you have a running HTTP server to which you can send requests.
 
-1. In Cloud Shell, use the following command to test the web service endpoint.
+1. Open another terminal window by clicking the <walkthrough-editor-spotlight spotlightId="menu-terminal-new-terminal">
+New Terminal</walkthrough-editor-spotlight> command.
+
+1.  In the new terminal, use the following command to test the web service endpoint.
 
     ```bash
     curl -H "Content-Type: application/json" http://localhost:8080/albums
@@ -292,9 +295,9 @@ To do this, you'll write the following:
 
 ### Run the code
 
-1. If the server is still running from the last section, stop it.
-1. Open the <walkthrough-editor-spotlight spotlightId="debug-configuration">Debug view</walkthrough-editor-spotlight>, then click the **Start Debugging** button.
-1. In Cloud Shell, use the following command to test the web service endpoint.
+1. In the server terminal window, make sure the server is stopped.
+1. To run the code, click the <walkthrough-editor-spotlight spotlightId="menu-run-start-without-debugging">Start without debugging</walkthrough-editor-spotlight> command.
+1. In the server terminal window, use the following command to test the web service endpoint.
 
     ```bash
     curl -H "Content-Type: application/json" -d '{"id": "48590","title": "The Modern Sound of Betty Carter","artist": "Betty Carter","price": 49.99}' http://localhost:8080/albums
@@ -389,9 +392,9 @@ To do this, you will:
 
 ### Run the code
 
-1. If the server is still running from the last section, stop it.
-1. Open the <walkthrough-editor-spotlight spotlightId="debug-configuration">Debug view</walkthrough-editor-spotlight>, then click the **Start Debugging** button.
-1. In Cloud Shell, use the following command to test the web service endpoint.
+1. In the server terminal window, make sure the server is stopped.
+1. To run the code, click the <walkthrough-editor-spotlight spotlightId="menu-run-start-without-debugging">Start without debugging</walkthrough-editor-spotlight> command.
+1. In the server terminal window, use the following command to test the web service endpoint.
 
     ```bash
     curl localhost:8080/albums/48583
