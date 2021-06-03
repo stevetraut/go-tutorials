@@ -58,13 +58,9 @@ To begin, create a project for the code you'll write.
 
 1. In the **Open Workspace** dialog, select the cloudshell_open/web-service-gin folder you just created, then click **Open**.
 
-1. If Cloud Shell isn't open, click the <walkthrough-cloud-shell-icon></walkthrough-cloud-shell-icon> button to open it.
+1. Click the <walkthrough-editor-spotlight spotlightId="menu-terminal-new-terminal">New Terminal</walkthrough-editor-spotlight> menu command to open a new Cloud Shell terminal.
 
-1. In Cloud Shell, change to the web-service-gin directory you created.
-
-    ```bash
-    cd ~/cloudshell_open/web-service-gin
-    ```
+    The terminal prompt should be in the web-service-gin directory.
 
 1. Create a module in which you can manage dependencies.
 
@@ -74,19 +70,22 @@ To begin, create a project for the code you'll write.
     go mod init example.com/web-service-gin
     ```
 
-    This command creates a go.mod file in which dependencies you might add will be listed for tracking. For more, be sure to see [Managing dependencies](https://golang.org/doc/modules/managing-dependencies).
+    This command creates a <walkthrough-editor-spotlight spotlightId="navigator" spotlightItem="go.mod">go.mod file</walkthrough-editor-spotlight> in which dependencies you might add will be listed for tracking. For more, be sure to see [Managing dependencies](https://golang.org/doc/modules/managing-dependencies).
 
 Next, you'll design data structures for handling data.
 
 ## Create the data
 
-To keep things simple for the tutorial, you'll store data in memory (a more typical API would interact with a database).
+To keep things simple for the tutorial, you'll store data in memory (a production API would typically interact with a database).
 
-Note that storing data in memory means that the set of albums will be lost each time you stop the server.
+Note that storing data in memory means that the set of albums will be lost each time you stop the server, then recreated when you start it.
 
 ### Write the code
 
-1. Using your text editor, create a file called main.go in the web-service directory. You'll write your Go code in this file.
+1. Click the <walkthrough-editor-spotlight spotlightId="menu-file">File Menu</walkthrough-editor-spotlight>, then click **New File**.
+
+1. In the **New File** dialog, enter `main.go` for the file name, then click **OK**.
+
 1. Into main.go, at the top of the file, paste the package declaration below.
 
     ```
@@ -95,7 +94,9 @@ Note that storing data in memory means that the set of albums will be lost each 
 
     With your code in a `main` package, you can execute it independently.
 
-1. Beneath the package declaration, paste the following declaration of an `album` struct. You'll use this to store album data in memory.
+1. Beneath the package declaration, paste the following declaration of an `album` struct. 
+
+    You'll use this to store album data in memory.
 
     Struct tags such as ``json:"artist"`` specify what a field's name should be when the struct's contents are serialized into JSON. Without them, the JSON would use the struct's capitalized field names – a style not typical for JSON.
 
@@ -109,7 +110,9 @@ Note that storing data in memory means that the set of albums will be lost each 
     }
     ```
 
-1. Beneath the struct declaration you just added, paste the following slice of `album` structs containing data you'll use to start.
+1. Beneath the struct declaration you just added, paste the following slice of `album` structs. 
+
+    This slice contains the data you'll use to start.
 
     ```
     // albums slice to seed record album data.
@@ -135,7 +138,9 @@ Note that this is the reverse of how they'll be executed at runtime, but you're 
 
 ### Write the code
 
-1. Beneath the struct code you added in the preceding section, paste the following code to get the album list.
+As you follow these steps, ignore the errors visible in the editor. You'll fix these **Run the code**, below. 
+
+1. Beneath the slice of structs you added in the preceding section, paste the following code to get the album list.
 
     This `handleAllAlbums` function creates JSON from the slice of `album` structs, writing the JSON into the response.
 
@@ -150,16 +155,18 @@ Note that this is the reverse of how they'll be executed at runtime, but you're 
 
     *   Write a `handleAllAlbums` function that takes a `gin.Context` parameter.
 
-        [`gin.Context`](https://pkg.go.dev/github.com/gin-gonic/gin#Context) is the most important part of Gin, carrying request details, validating and serializing JSON, and more. Note that you could have given this function any name – neither Gin nor Go require a particular function name format. Also, despite the similar name, this is different from Go's built-in [context package](https://pkg.go.dev/context/).
+        [`gin.Context`](https://pkg.go.dev/github.com/gin-gonic/gin#Context) is the most important part of Gin, carrying request details, validating and serializing JSON, and more. Note that you could have given this function any name – neither Gin nor Go require a particular function name format. 
+        
+        Also, despite the similar name, this is different from Go's built-in [context package](https://pkg.go.dev/context/).
 
     *   Call the [`Context.JSON` function](https://pkg.go.dev/github.com/gin-gonic/gin#Context.JSON) to serialize the struct into JSON and add it to the response.
 
         The function's first argument is the HTTP status code you want to send to the client. Here, you're passing a [`StatusOK` constant](https://pkg.go.dev/net/http#StatusOK) from the `net/http` package to indicate `200 OK`.
 
 
-        Note that you can replace `Context.JSON` with a call to [`Context.IndentedJSON` function](https://pkg.go.dev/github.com/gin-gonic/gin#Context.IndentedJSON) to display JSON that's a bit easier to read while debugging. Note that this is a poor practice in production because it unnecessarily increases the payload size.
+        If you want to display indented JSON that's a bit easier to read while debugging, you can replace `Context.JSON` with a call to [`Context.IndentedJSON` function](https://pkg.go.dev/github.com/gin-gonic/gin#Context.IndentedJSON). Keep in mind that this is a poor practice in production because it unnecessarily increases the payload size.
 
-1. Near the top of the main.go file, just beneath the `albums` slice declaration, paste the code below to assign the handler function to an endpoint path.
+1. Near the top of the main.go file, just beneath the `albums` slice declaration (and before the `handleAllAlbums` function), paste the code below to assign the handler function to an endpoint path.
 
     This sets up an association in which the `handleAllAlbums` function you wrote will handle requests to the `/albums` endpoint path.
 
@@ -167,12 +174,11 @@ Note that this is the reverse of how they'll be executed at runtime, but you're 
     func main() {
         router := gin.Default()
         router.GET("/albums", handleAllAlbums)
-
         router.Run(":8080")
     }
     ```
 
-    Note that you're passing the _name_ of the `handleAllAlbums` function. This is different from passing the _result_ of the function, which you would do if the argument was `handleAllAlbums()` (note the parenthesis).
+    Note that you're passing the _name_ of the `handleAllAlbums` function. This is different from passing the _result_ of the function, which you would be doing if the argument was `handleAllAlbums()` (note the parenthesis).
 
     In this code, you:
 
@@ -196,31 +202,31 @@ Note that this is the reverse of how they'll be executed at runtime, but you're 
 
 1. Save main.go.
 
-#### Run the code
+### Run the code
 
 1. Begin tracking the Gin module as a dependency.
 
     At the command line, use the [`go mod tidy` command](https://golang.org/ref/mod#go-mod-tidy) to add the github.com/gin-gonic/gin module as a dependency for your module.
 
     ```bash
-    $ go mod tidy
-    go: finding module for package github.com/gin-gonic/gin
-    go: found github.com/gin-gonic/gin in github.com/gin-gonic/gin v1.7.2
+    go mod tidy
     ```
+    
+    The command should report that it found the module for Gin: github.com/gin-gonic/gin in github.com/gin-gonic/gin. If you didn't have it already it, the command downloaded it.
 
-    Go downloaded this dependency because you added it to the `import` declaration in the previous step.
+    Go located this dependency because you imported a package from it with the `import` declaration.
 
-1. From the command line in the directory containing main.go, run the code.
+1. To set up to run the code, click the <walkthrough-editor-spotlight spotlightId="menu-run">Run menu</walkthrough-editor-spotlight>, then click **Open Configurations**.
 
-    ```bash
-    go run .
-    ```
+    This creates a launch.json file with configuration properties to run your code. You can close this without editing it.
 
-    If prompted to do so, allow incoming connections.
+1. To run the code, click the <walkthrough-editor-spotlight spotlightId="menu-run-start-without-debugging">Start without debugging</walkthrough-editor-spotlight> menu command.
 
-    Once the code is running, you have a running HTTP server to which you can send requests.
+1. Click the **View menu**, then click **Debug Console**.
 
-1. From a new command line window, use `curl` to make a request to your running web service.
+    The Debug Console should show that your web service is listening and serving HTTP on port 8080. 
+
+1. In the Cloud Shell terminal window, use the following `curl` command to make a request to your running web service.
 
     ```bash
     curl http://localhost:8080/albums \
@@ -257,7 +263,7 @@ In the next section, you'll add code to handle a `POST` request to add an item.
 
 ## Write a handler to add a new item
 
-When the client makes a `POST `request at `/albums`, you want to add the album described in the client's request body to the existing albums data you've already got.
+When the client makes a `POST` request at `/albums`, you want to add the album described in the client's request body to the existing albums data you've already got.
 
 To do this, you'll write the following:
 
@@ -266,7 +272,7 @@ To do this, you'll write the following:
 
 ### Write the code
 
-1. Somewhere after the `import` statements, paste the following code to add an album. (Go doesn't enforce the order in which you declare functions.)
+1. Somewhere after the `import` statements paste the following code to add an album. (The end of the file is a good place for this code, but Go doesn't enforce the order in which you declare functions.)
 
     The `handleAddAlbum` function will add the data you receive to the list of albums.
 
@@ -295,7 +301,7 @@ To do this, you'll write the following:
     *   Append the `album` struct initialized from the JSON to the `albums` slice.
     *   Add a `201` status code to the response, along with JSON representing the album you added.
 
-1. Add the following highlighted code to your `main` function.
+1. Update your `main` function to include a call to `router.POST`. Your `main` should look like the following:
 
     ```
     func main() {
@@ -308,18 +314,19 @@ To do this, you'll write the following:
 
     In this code, you:
 
-    *   Associate the `POST` method at the `/albums` path with the `handleAddAlbum` function. With Gin, you can associate a handler with an HTTP method-and-path combination. In this way, you can separately route requests sent to a single path based on the method the client is using.
+    *   Use the [`POST` function](https://pkg.go.dev/github.com/gin-gonic/gin#RouterGroup.POST) to associate the `POST` method at the `/albums` path with the `handleAddAlbum` function.
+    
+        With Gin, you can associate a handler with an HTTP method-and-path combination. In this way, you can separately route requests sent to a single path based on the HTTP method the client is using.
 
-#### Run the code
+### Run the code
 
 1. If the server is still running from the last section, stop it.
-1. From the command line in the directory containing main.go, run the code.
 
-    ```bash
-    go run .
-    ```
+    *   Open the <walkthrough-editor-spotlight spotlightId="debug-configuration">Debug configuration panel</walkthrough-editor-spotlight>, then click the square stop button.
 
-1. From a different command line window, use `curl` to make a request to your running web service.
+1. To run the code, click the <walkthrough-editor-spotlight spotlightId="menu-run-start-without-debugging">Start without debugging</walkthrough-editor-spotlight> menu command.
+
+1. In the Cloud Shell terminal window, use the following `curl` command to make a request to your running web service.
 
     ```bash
     curl http://localhost:8080/albums \
@@ -335,7 +342,7 @@ To do this, you'll write the following:
     HTTP/1.1 201 Created
     Content-Type: application/json; charset=utf-8
     Date: Wed, 02 Jun 2021 00:34:12 GMT
-    Content-Length: 95
+    Content-Length: 91
 
     {"id":"4","title":"The Modern Sound of Betty Carter","artist":"Betty Carter","price":49.99}
     ```
@@ -415,24 +422,23 @@ To do this, you will:
 
     In this code, you:
 
-    *   Use the `Context.Param` function to retrieve the `id` path parameter from the URL.
+    *   Use the [`Context.Param` function](https://pkg.go.dev/github.com/gin-gonic/gin#Context.Param) to retrieve the `id` path parameter from the URL.
     
         When you map this handler to a path, you'll include a placeholder for the parameter in the path.
     *   Loop through the `album` structs in the slice, looking for one whose `ID` field value matches the `id` parameter value.
     
         If it's found, you serialize that `album` struct to JSON and return it as a response with a `200` OK HTTP code.
-    (As mentioned above, a real-world service would likely use a database query to perform this lookup.)
+    (As mentioned earlier, a real-world service would likely use a database query to perform this lookup.)
     *   Return an HTTP `404` error with [`http.StatusNotFound`](https://pkg.go.dev/net/http#StatusNotFound) if the album isn't found.
 
-1. Finally, add the following highlighted code to your `main` function.
+1. Finally, change your `main` function to include a new call to `router.GET`. Your `main` should look like the following:
 
     ```
     func main() {
         router := gin.Default()
         router.GET("/albums", handleAllAlbums)
-        router.GET("/albums/:id", handleAlbumByID)</ins>
+        router.GET("/albums/:id", handleAlbumByID)
         router.POST("/albums", handleAddAlbum)
-
         router.Run(":8080")
     }
     ```
@@ -443,16 +449,13 @@ To do this, you will:
     
         In Gin, the colon preceding an item in the path signifies that the item is a path parameter.
 
-#### Run the code
+### Run the code
 
-1. If the server is still running from the last section, stop it.
-1. From the command line in the directory containing main.go, run the code to start the server.
+1. If the server is still running from the last section, stop it as you did before in the <walkthrough-editor-spotlight spotlightId="debug-configuration">Debug configuration panel</walkthrough-editor-spotlight>.
 
-    ```bash
-    go run .
-    ```
+1. To run the code, click the <walkthrough-editor-spotlight spotlightId="menu-run-start-without-debugging">Start without debugging</walkthrough-editor-spotlight> menu command.
 
-1. From a different command line window, use `curl` to make a request to your running web service.
+1. In the Cloud Shell terminal window, use the following `curl` command to make a request to your running web service.
 
     ```bash
     curl http://localhost:8080/albums/2 \
@@ -469,6 +472,8 @@ To do this, you will:
         "price": 17.99
     }
     ```
+
+Continue to the last section for links to useful content.
 
 ## Conclusion
 
